@@ -4,6 +4,7 @@ Regex-ing
 Log formatter
 Create logger
 Connect to secure database
+Read and filter data
 """
 
 import re
