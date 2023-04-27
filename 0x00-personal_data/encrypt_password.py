@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 Encrypting passwords.
+Check valid password.
 """
 
 import bcrypt
