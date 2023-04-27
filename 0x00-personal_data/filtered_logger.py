@@ -3,11 +3,14 @@
 Regex-ing
 Log formatter
 Create logger
+Connect to secure database
 """
 
 import re
 import logging
+import mysql.connector
 from typing import List
+from os import getenv
 
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
@@ -69,3 +72,19 @@ def get_logger() -> logging.Logger:
     handler.setFormatter(formatter)
     logger.addHandler(handler)
     return logger
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """
+    This function returns a connector to the database which is
+    (mysql.connector.connection.MySQLConnection) object.
+    """
+    username = getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
+    password = getenv('PERSONAL_DATA_DB_PASSWORD', ''),
+    host = getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
+    db = getenv('PERSONAL_DATA_DB_NAME')
+
+    conn = mysql.connector.connection.MySQLConnection(
+        user=username, password=password, host=host, database=db
+    )
+    return conn
