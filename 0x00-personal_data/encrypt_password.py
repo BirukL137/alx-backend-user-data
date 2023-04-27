@@ -3,7 +3,7 @@
 Encrypting passwords.
 """
 
-from bcrypt import gensalt, hashpw
+import bcrypt
 
 
 def hash_password(password: str) -> bytes:
@@ -11,7 +11,6 @@ def hash_password(password: str) -> bytes:
     This function that expects one string argument name password
     and returns salted, hashed password, which is a byte string.
     """
-    salt = gensalt()
-    hashed_password = hashpw(password.encode(), salt)
-
+    salt = bcrypt.gensalt()
+    hashed_password = bcrypt.hashpw(password.encode(), salt)
     return hashed_password
