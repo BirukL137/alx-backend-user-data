@@ -40,7 +40,8 @@ def not_found(error) -> str:
 
 @app.before_request
 def filter_request():
-    """filter request
+    """
+    filter request
     """
     if auth is None:
         return
@@ -58,6 +59,7 @@ def filter_request():
 
     if auth.current_user(request) is None:
         abort(403)
+
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
