@@ -5,6 +5,7 @@ Basic - Base64 part
 Basic - Base64 decode
 Basic - User credentials
 Basic - User object
+Basic - Overload current_user - and BOOM!
 """
 
 import base64
@@ -98,5 +99,6 @@ class BasicAuth(Auth):
         if not user_email or not user_pwd:
             return None
 
-        user = self.user_object_from_credentials(user_email=user_email, user_pwd=user_pwd)
+        user = self.user_object_from_credentials(user_email=user_email,
+                                                 user_pwd=user_pwd)
         return user
