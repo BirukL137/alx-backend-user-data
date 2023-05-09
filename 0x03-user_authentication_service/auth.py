@@ -41,3 +41,16 @@ class Auth:
             user = self._db.add_user(email=email,
                                      hashed_password=hashed_password)
             return user
+
+    def valid_login(self, email: str, password: str) -> bool:
+        """
+        This method expects email and password required arguments and returns
+        a boolean. It tries locating the user by email. If it exists, it
+        checks the password, If it matches, it returns True. Otherwise False.
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+            return bcrypt.checkpw(password.encode('utf-8'),
+                                  user.hashed_password)
+        except NoResultFound:
+            return False
