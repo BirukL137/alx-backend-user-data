@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 Basic Flask app
+Register user
 """
 
 from flask import Flask, jsonify, request
