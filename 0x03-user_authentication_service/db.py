@@ -35,8 +35,7 @@ class DB:
         email and hashed_password arguments and adds it to the database and
         returns a User object.
         """
-        session = self._session
         user = User(email=email, hashed_password=hashed_password)
-        session.add(user)
-        session.commit()
+        self._session.add(user)
+        self._session.commit()
         return user
