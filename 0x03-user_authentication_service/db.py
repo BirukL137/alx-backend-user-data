@@ -52,7 +52,7 @@ class DB:
         arguments.
         """
         session = self._session
-        if not kwargs:
+        if kwargs is None:
             raise InvalidRequestError
 
         col_names = User.__table__.columns.keys()
@@ -60,7 +60,7 @@ class DB:
             if i not in col_names:
                 raise InvalidRequestError
 
-        user = session.query(User).filter_by(**kwargs).one()
+        user = session.query(User).filter_by(**kwargs).first()
         if user is None:
             raise NoResultFound
         return user
