@@ -52,10 +52,15 @@ class DB:
         arguments.
         """
         session = self._session
-        try:
-            user = session.query(User).filter_by(**kwargs).one()
-            return user
-        except NoResultFound:
-            raise NoResultFound()
-        except InvalidRequestError:
-            raise InvalidRequestError()
+        if kwargs is None:
+            raise InvalidRequestError
+
+        col_names = User.__table__.columns.keys()
+        for i in kwargs.keys():
+            if i not in col_names:
+                raise InvalidRequestError
+
+        user = session.query(User).filter_by(**kwargs).one()
+        if user is None:
+            raise NoResultFound
+        return user
