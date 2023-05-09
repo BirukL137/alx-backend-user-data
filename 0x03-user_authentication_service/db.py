@@ -52,7 +52,7 @@ class DB:
         arguments.
         """
         session = self._session
-        if kwargs is None:
+        if not kwargs:
             raise InvalidRequestError
 
         col_names = User.__table__.columns.keys()
