@@ -2,6 +2,7 @@
 """
 Hash password
 Register user
+Credentials validation
 """
 
 from db import DB
