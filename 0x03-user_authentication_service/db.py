@@ -8,7 +8,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy.exc import NoResultFound, InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
 
 from user import Base, User
 
@@ -60,7 +61,7 @@ class DB:
             if i not in col_names:
                 raise InvalidRequestError
 
-        user = session.query(User).filter_by(**kwargs).first()
+        user = session.query(User).filter_by(**kwargs).one()
         if user is None:
             raise NoResultFound
         return user
