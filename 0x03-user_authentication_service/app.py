@@ -56,7 +56,7 @@ def login():
 
 
 @app.route("DELETE /sessions")
-def logout(self, request):
+def logout(self):
     """
     A method that takes a request that is expected to contain the session ID
     as a cookies. If the user exists destroy the session and redirect to GET.
