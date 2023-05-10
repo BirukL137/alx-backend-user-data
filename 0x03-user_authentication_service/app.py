@@ -3,9 +3,10 @@
 Basic Flask app
 Register user
 Log in
+Log out
 """
 
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, redirect
 from auth import Auth
 
 app = Flask(__name__)
@@ -52,6 +53,22 @@ def login():
         response.set_cookie("session_id", session_id)
         return response
     abort(401)
+
+
+@app.route("DELETE /sessions")
+def logout(self, request):
+    """
+    A method that takes a request that is expected to contain the session ID
+    as a cookies. If the user exists destroy the session and redirect to GET
+    '/'. Otherwise, respond with a 403 HTTP status.
+    """
+    session_id = request.cookies.get("session_id")
+    if session_id:
+        user = AUTH.get_user_from_session_id(session_id)
+        if user:
+            AUTH.destroy_session(user.id)
+            return redirect("/")
+    return abort(403)
 
 
 if __name__ == "__main__":
