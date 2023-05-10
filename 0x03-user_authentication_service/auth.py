@@ -5,6 +5,7 @@ Register user
 Credentials validation
 Generate UUIDs
 Get session ID
+Find user by session ID
 """
 
 from db import DB
