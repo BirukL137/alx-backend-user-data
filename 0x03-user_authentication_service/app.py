@@ -4,6 +4,7 @@ Basic Flask app
 Register user
 Log in
 Log out
+user profile
 """
 
 from flask import Flask, jsonify, request, abort, redirect

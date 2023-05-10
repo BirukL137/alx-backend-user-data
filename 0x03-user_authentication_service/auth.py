@@ -7,6 +7,7 @@ Generate UUIDs
 Get session ID
 Find user by session ID
 Destroy session
+Generate reset password token
 """
 
 from db import DB
@@ -96,6 +97,21 @@ class Auth:
             user = self._db.find_user_by(id=user_id)
             self._db.update_user(user.id, session_id=None)
         except NoResultFound:
+            return None
+
+    def get_reset_password_token(self, email: str) -> str:
+        """
+        A method that takes an email string as an argument and find the user
+        corresponding to the email. If the user exists, it generate a UUID and
+        update the user's reset_token database field and return the token.
+        Otherwise raise ValueError.
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+            session_id = _generate_uuid()
+            self._db.update_user(user.id, session_id=session_id)
+            return session_id
+        except ValueError:
             return None
 
 
