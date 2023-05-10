@@ -59,8 +59,8 @@ def login():
 def logout(self, request):
     """
     A method that takes a request that is expected to contain the session ID
-    as a cookies. If the user exists destroy the session and redirect to GET
-    '/'. Otherwise, respond with a 403 HTTP status.
+    as a cookies. If the user exists destroy the session and redirect to GET.
+    Otherwise, respond with a 403 HTTP status.
     """
     session_id = request.cookies.get("session_id")
     if session_id:
