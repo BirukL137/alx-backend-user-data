@@ -10,6 +10,7 @@ Get session ID
 from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
+from typing import Union
 import bcrypt
 import uuid
 
@@ -69,6 +70,18 @@ class Auth:
             session_id = _generate_uuid()
             self._db.update_user(user.id, session_id=session_id)
             return session_id
+        except NoResultFound:
+            return None
+
+    def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
+        """
+        A method that takes a single session_id string argument. If the
+        session ID is None or no user is found, return None. Otherwise return
+        the corresponding user.
+        """
+        try:
+            user = self._db.find_user_by(session_id=session_id)
+            return user
         except NoResultFound:
             return None
 
