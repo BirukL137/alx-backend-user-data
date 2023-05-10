@@ -55,7 +55,7 @@ def login():
     abort(401)
 
 
-@app.route("DELETE /sessions")
+@app.route("/sessions", methods=["DELETE"])
 def logout():
     """
     A method that takes a request that is expected to contain the session ID
