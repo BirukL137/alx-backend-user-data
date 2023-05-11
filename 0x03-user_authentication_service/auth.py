@@ -116,6 +116,13 @@ class Auth:
             raise ValueError
 
     def update_password(self, reset_token: str, password: str) -> None:
+        """
+        A method that takes a reset token string argument and a password
+        string argument and use the reset token to find the corresponding
+        user. If it does exist, it will hash the password and update the
+        user's hashed password field with the new one and reset the token to
+        None. Otherwise, raises ValueError.
+        """
         try:
             user = self._db.find_user_by(reset_token=reset_token)
             hashed_password = _hash_password(password)
