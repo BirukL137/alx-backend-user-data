@@ -97,10 +97,11 @@ def get_reset_password_token():
     responds with a JSON payload with 200 status code.
     """
     email = request.form.get("email")
-    reset_token = AUTH.get_reset_password_token(email)
-    if reset_token:
+    try:
+        reset_token = AUTH.get_reset_password_token(email)
         return jsonify({"email": email, "reset_token": reset_token}), 200
-    abort(403)
+    except ValueError:
+        abort(403)
 
 
 if __name__ == "__main__":
