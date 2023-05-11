@@ -5,6 +5,7 @@ Register user
 Log in
 Log out
 user profile
+Get reset password token
 """
 
 from flask import Flask, jsonify, request, abort, redirect
@@ -84,6 +85,21 @@ def profile():
         user = AUTH.get_user_from_session_id(session_id)
         if user:
             return jsonify({"email": user.email}), 200
+    abort(403)
+
+
+@app.route("/reset_password", methods=["POST"])
+def get_reset_password_token():
+    """
+    A method that takes an email request form to generate a reset password
+    token when a user requests it. If the email address is not registered,
+    it responds with a 403 status code. Otherwise, generate a token and
+    responds with a JSON payload with 200 status code.
+    """
+    email = request.form.get("email")
+    reset_token = AUTH.get_reset_password_token(email)
+    if reset_token:
+        return jsonify({"email": email, "reset_token": reset_token}), 200
     abort(403)
 
 
